@@ -1,2 +1,28 @@
-# blackrussia-api-2022
-Black Russia 2022 Api for Old Launcher "blackrussia.online", Api for Old Black Russia Launcher, the so-called "zamenka ip (IP Replacement)"
+# 🛠 Инструкция по настройке Native-части (JNI)
+
+Для того чтобы лаунчер подключался к вашему серверу, необходимо изменить IP и порт в исходном коде C++ и скомпилировать библиотеку.
+
+### 1. Изменение адреса сервера
+Перейдите по пути: `jni/network/CNetGame.cpp`
+
+Найдите метод подключения и замените стандартные данные на свои. 
+**Важно:** Удалите текстовые подсказки `it's IP` и `it's port`, оставьте только сами значения.
+
+**Было:**
+```cpp
+m_rakClientInterface->Connect((char*)OBFUSCATE(">it's IP 141.95.190.144"), it's port 1129, 0, 0, 5);
+```
+**Должно стать (пример):**
+```cpp
+m_rakClientInterface->Connect((char*)OBFUSCATE("123.45.67.89"), 7777, 0, 0, 5);
+```
+
+2. Компиляция
+Для сборки проекта вам понадобится Android NDK r16b.
+
+Использование более новых версий NDK может привести к ошибкам компиляции.
+
+Скачать старые версии можно на [официальном сайте Android NDK.](https://developer.android.com/ndk/downloads/older_releases)
+
+После установки NDK выполните команду в папке с проектом:
+`ndk-build`
